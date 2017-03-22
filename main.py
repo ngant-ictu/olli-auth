@@ -15,38 +15,46 @@ from routes import user as userRoutes
 
 webapp2Config = defaultConfig.config
 
+# Error handle
 def handle_404(request, response, exception):
     response.headers['Content-Type'] = 'text/json'
     response.out.write(json.dumps({
         'code': 404,
-        'message': 'Not found'
+        'message': str(exception)
     }).encode('utf-8'))
-    print exception
     response.set_status(404)
 
-def handle_500(request, response, exception):
-    response.headers['Content-Type'] = 'text/json'
-    response.out.write(json.dumps({
-        'code': 500,
-        'message': 'Internal server error'
-    }).encode('utf-8'))
-    print exception
-    response.set_status(500)
+# def handle_500(request, response, exception):
+#     response.headers['Content-Type'] = 'text/json'
+#     response.out.write(json.dumps({
+#         'code': 500,
+#         'message': str(exception)
+#     }).encode('utf-8'))
+#     response.set_status(500)
+#     print exception
 
 def handle_405(request, response, exception):
     response.headers['Content-Type'] = 'text/json'
     response.out.write(json.dumps({
         'code': 405,
-        'message': 'Method not allowed'
+        'message': str(exception)
     }).encode('utf-8'))
-    print exception
     response.set_status(405)
+
+def handle_403(request, response, exception):
+    response.headers['Content-Type'] = 'text/json'
+    response.out.write(json.dumps({
+        'code': 403,
+        'message': str(exception)
+    }).encode('utf-8'))
+    response.set_status(403)
 
 app = webapp2.WSGIApplication(debug=os.environ['SERVER_SOFTWARE'].startswith('Dev'), config=webapp2Config)
 
 # Routes add
 userRoutes.add(app)
 
+app.error_handlers[403] = handle_403
 app.error_handlers[404] = handle_404
 app.error_handlers[405] = handle_405
-app.error_handlers[500] = handle_500
+# app.error_handlers[500] = handle_500

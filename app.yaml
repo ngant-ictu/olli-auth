@@ -55,6 +55,9 @@ libraries:
 - name: ssl
   version: latest
 
+- name: pycrypto
+  version: latest
+
 builtins:
 - deferred: on
 - remote_api: on
