@@ -10,12 +10,16 @@ class ListHandler(BaseHandler):
 
     @logged_in
     def get(self):
-        params = {
-            'id': 1
-        }
+        output = []
+        userQuery = UserModel.query()
+        myUsers = userQuery.fetch()
 
-        self.debug(params)
-        self.responseJSON(**params)
+        for user in myUsers:
+            output.append(user.email)
+
+        self.responseJSON('', **{
+            'data': output
+        })
 
 class RegisterHandler(BaseHandler):
 

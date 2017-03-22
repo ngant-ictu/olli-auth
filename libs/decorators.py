@@ -14,13 +14,18 @@ def logged_in(handler):
         if jwtToken:
             try:
                 payload = jwt.decode(
-                    jwtToken, defaultConfig.config['secret_key'],
-                    algorithms=[defaultConfig.config['algorithms']]
+                    jwtToken,
+                    defaultConfig.config['jwt_secret'],
+                    algorithms=[defaultConfig.config['jwt_algorithms']],
+                    issuer=defaultConfig.config['app_name']
                 )
 
                 # Authorization
-            except AttributeError, e:
-                self.abort(500)
+            except (jwt.DecodeError, jwt.ExpiredSignatureError):
+                if jwt.ExpiredSignatureError:
+                    self.abort(500)  # expired
+                else:
+                    self.abort(400)
         else:
             self.abort(403)
 

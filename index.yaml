@@ -4,3 +4,4 @@ indexes:
   properties:
   - name: email
     direction: desc
+  - name: password
