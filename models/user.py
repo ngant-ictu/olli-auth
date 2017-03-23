@@ -9,3 +9,4 @@ class User(ndb.Model):
     groupid = ndb.IntegerProperty(required=True)
     datecreated = ndb.DateTimeProperty(auto_now_add=True)
     datemodified = ndb.DateTimeProperty(auto_now=True)
+    datechangepassword = ndb.DateTimeProperty()

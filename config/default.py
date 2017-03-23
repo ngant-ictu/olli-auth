@@ -9,7 +9,7 @@ config = {
     # JWT Secret
     'jwt_secret': '_PUT_KEY_HERE_YOUR_SECRET_KEY_',
     'jwt_algorithms': 'HS256',
-    'jwt_expire': 3600, # seconds
+    'jwt_expire': 157784760, # in seconds (5 years)
 
     # webapp2 sessions
     'webapp2_extras.sessions': {'secret_key': '_PUT_KEY_HERE_YOUR_SECRET_KEY_'},

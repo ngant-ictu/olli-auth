@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # coding: utf-8
 
+import os
 import webapp2
 import json
 import pprint
@@ -39,16 +40,28 @@ class BaseHandler(webapp2.RequestHandler):
         """ Custom Response data to client """
 
         output = OrderedDict()
-        self.response.headers['Content-Type'] = 'text/json'
+        self.response.headers['Content-Type'] = 'text/json; charset=utf-8'
 
         if len(errorConstant) > 0:
             output = ErrorCode.error[errorConstant]
-            output['data'] = []
-            for msg in kwargs['data']:
-                output['data'].append(msg)
+
+            try:
+                kwargs['data']
+            except:
+                pass
+            else:
+                output['data'] = []
+                for msg in kwargs['data']:
+                    output['data'].append(msg)
+
+            self.response.status_int = ErrorCode.error[errorConstant]['status_code']
+
+            if os.environ['SERVER_SOFTWARE'].startswith('Dev') == False:
+                del ErrorCode.error[errorConstant]['dev_message']
 
             return self.response.out.write(json.dumps(output).encode('utf-8'))
         else:
+            kwargs['status_code'] = 200
             return self.response.out.write(json.dumps(kwargs).encode('utf-8'))
 
     def debug(self, output):

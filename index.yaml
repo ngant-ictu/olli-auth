@@ -2,6 +2,8 @@ indexes:
 
 - kind: User
   properties:
+  - name: datecreated
+    direction: desc
   - name: email
     direction: desc
   - name: password
