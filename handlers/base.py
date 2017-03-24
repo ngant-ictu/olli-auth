@@ -15,6 +15,7 @@ class Debug(pprint.PrettyPrinter):
     def format(self, object, context, maxlevels, level):
         if isinstance(object, unicode):
             return (object.encode('utf8'), True, False)
+            import pdb; pdb.set_trace();
         return pprint.PrettyPrinter.format(self, object, context, maxlevels, level)
 
 class BaseHandler(webapp2.RequestHandler):
@@ -73,3 +74,6 @@ class BaseHandler(webapp2.RequestHandler):
         """ Parse request body from raw json data request """
 
         return json.loads(requestBody)
+
+    def getHostname(self):
+        return self.request.host_url

@@ -22,6 +22,7 @@ error = {
         'dev_message': 'Entity can not put to datastore via update method',
         'status_code': 400
     },
+
     'TOKEN_EXPIRED': {
         'error_code': 2001,
         'dev_message': 'JWT token date expired',
@@ -37,9 +38,20 @@ error = {
         'dev_message': 'JWT token just changed by user, may be user change password',
         'status_code': 400
     },
+
     'PASSWORD_NOT_MATCH': {
         'error_code': 3000,
         'dev_message': 'Password user request not match with current password of user',
+        'status_code': 400
+    },
+    'USER_INACTIVE': {
+        'error_code': 4000,
+        'dev_message': 'User did not activate',
+        'status_code': 400
+    },
+    'USER_ACTIVATION_EXPIRE': {
+        'error_code': 4001,
+        'dev_message': 'Activation link has been expired',
         'status_code': 400
     }
 }

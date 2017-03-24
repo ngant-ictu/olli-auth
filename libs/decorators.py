@@ -21,22 +21,23 @@ def logged_in(handler):
                     algorithms=[defaultConfig.config['jwt_algorithms']],
                     issuer=defaultConfig.config['app_name']
                 )
-            except (jwt.DecodeError, jwt.ExpiredSignatureError):
-                if jwt.ExpiredSignatureError:
-                    self.responseJSON('TOKEN_EXPIRED')
-                    return
-
+            except (jwt.DecodeError, jwt.ExpiredSignatureError), e:
+                self.responseJSON('TOKEN_EXPIRED', **{
+                    'data': [str(e)]
+                })
+                return
             # check InvalidTokenDB to validate if user logout
 
             # check token created time and changed password time, if < -> token invalid
             try:
-                myUser = UserModel.get_by_id(int(userToken['id']))
+                myUser = UserModel.get_by_id(userToken['id'])
+                assert myUser is not None
             except:
                 self.responseJSON('DATA_NOTFOUND')
                 return
 
-            if myUser.datechangepassword != None:
-                if Helper.timestampToDatetime(userToken['iat']) < myUser.datechangepassword:
+            if myUser.date_change_password != None:
+                if Helper.timestampToDatetime(userToken['iat']) < myUser.date_change_password:
                     self.responseJSON('TOKEN_INVALID_TIME')
                     return
 

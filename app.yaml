@@ -37,6 +37,7 @@ handlers:
 
 - url: /api.*
   script: main.app
+  secure: always
 
 - url: /
   static_files: public/index.html

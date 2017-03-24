@@ -4,11 +4,15 @@
 import re
 import os
 import hashlib
+import httplib2
+import urllib
+import time
+import jwt
+import string
+import random
 from pbkdf2 import crypt
 from config import default as defaultConfig
 from datetime import datetime, timedelta
-import time
-import jwt
 
 def hash_password(pwraw):
     """ Hash a unique email and password of user """
@@ -44,3 +48,30 @@ def timestampToDatetime(timestampValue):
     """ Convert from Timestamp to Datetime """
 
     return datetime.fromtimestamp(timestampValue)
+
+def send_mail(htmlMessage, subject, recipient):
+    """ Send email using Mailgun """
+
+    http = httplib2.Http()
+    http.add_credentials('api', defaultConfig.config['mailgun_api_key'])
+    url = defaultConfig.config['mailgun_url'].format(defaultConfig.config['mailgun_domain'])
+
+    data = {
+        'from': defaultConfig.config['mailgun_sender'].format(defaultConfig.config['mailgun_domain']),
+        'to': str(recipient),
+        'subject': str(subject),
+        'html': htmlMessage
+    }
+
+    resp, content = http.request(
+        url, 'POST', urllib.urlencode(data),
+        headers={"Content-Type": "application/x-www-form-urlencoded"})
+
+    if resp.status != 200:
+        raise RuntimeError(
+            'Mailgun API error: {} {}'.format(resp.status, content))
+
+def random_string(size=24, chars=string.ascii_letters + string.digits):
+    """ Generate random string """
+
+    return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(size))
