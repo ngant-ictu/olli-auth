@@ -38,6 +38,11 @@ error = {
         'dev_message': 'JWT token just changed by user, may be user change password',
         'status_code': 400
     },
+    'TOKEN_INVALID': {
+        'error_code': 2004,
+        'dev_message': 'JWT token just invalid because user has been logged out',
+        'status_code': 400
+    },
 
     'PASSWORD_NOT_MATCH': {
         'error_code': 3000,

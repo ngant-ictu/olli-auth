@@ -15,3 +15,4 @@ class User(ndb.Model):
 
     STATUS_ACTIVE = 1
     STATUS_INACTIVE = 3
+    STATUS_LOGOUT = 5

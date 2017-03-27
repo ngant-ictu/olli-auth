@@ -189,7 +189,6 @@ class ChangepasswordHandler(BaseHandler):
                     myUser.key.id()
                 ]
             })
-
         else:
             self.responseJSON('DATA_VALIDATE_FAILED', **{'data': message})
             return
@@ -216,6 +215,37 @@ class ChangepasswordHandler(BaseHandler):
             message.append('Repeat password not match')
 
         return isOk
+
+class LogoutHandler(BaseHandler):
+
+    @logged_in
+    def post(self, user):
+        message = []
+
+        userQuery = UserModel.query().filter(UserModel.email == user['email'])
+        myUsers = userQuery.fetch()
+
+        if len(myUsers) > 0:
+            if myUsers[0].status == UserModel.STATUS_INACTIVE:
+                self.responseJSON('USER_INACTIVE')
+                return
+            else:
+                # update user status to STATUS_LOGOUT
+                myUsers[0].status = UserModel.STATUS_LOGOUT
+
+                try:
+                    myUsers[0].put()
+                except:
+                    self.responseJSON('DATA_UPDATE_FAILED')
+                    return
+
+                self.responseJSON('', **{
+                    'message': 'User logout success',
+                    'data': []
+                })
+        else:
+            self.responseJSON('DATA_NOT_FOUND')
+            return
 
 class ActivationHandler(BaseHandler):
 

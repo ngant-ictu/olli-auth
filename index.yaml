@@ -7,3 +7,7 @@ indexes:
   - name: email
     direction: desc
   - name: password
+
+- kind: InvalidToken
+  properties:
+  - name: token

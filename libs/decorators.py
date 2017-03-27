@@ -14,6 +14,7 @@ def logged_in(handler):
         jwtToken = self.request.headers.get('Authorization', None)
 
         if jwtToken:
+            # validate token
             try:
                 userToken = jwt.decode(
                     jwtToken,
@@ -26,7 +27,6 @@ def logged_in(handler):
                     'data': [str(e)]
                 })
                 return
-            # check InvalidTokenDB to validate if user logout
 
             # check token created time and changed password time, if < -> token invalid
             try:
@@ -40,6 +40,11 @@ def logged_in(handler):
                 if Helper.timestampToDatetime(userToken['iat']) < myUser.date_change_password:
                     self.responseJSON('TOKEN_INVALID_TIME')
                     return
+
+            # check user logged out
+            if myUser.status == UserModel.STATUS_LOGOUT:
+                self.responseJSON('TOKEN_INVALID')
+                return
 
             # authorization system
         else:
