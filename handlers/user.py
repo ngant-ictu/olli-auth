@@ -222,7 +222,7 @@ class LogoutHandler(BaseHandler):
     def post(self, user):
         message = []
 
-        userQuery = UserModel.query().filter(UserModel.email == user['email'])
+        userQuery = UserModel.query().filter(UserModel.email == user['email']).filter(UserModel.status == UserModel.STATUS_ACTIVE)
         myUsers = userQuery.fetch()
 
         if len(myUsers) > 0:
