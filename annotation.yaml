@@ -21,6 +21,7 @@ skip_files:
 - \.gitignore
 - ^\.git/.*
 - ^node_modules/(.*/)?
+- ^speech-api-server/node_modules/(.*/)?
 
 handlers:
 - url: /assets/css

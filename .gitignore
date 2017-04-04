@@ -58,3 +58,4 @@ target/
 .idea/
 
 libs/external/*
+speech-api-server/node_modules/*

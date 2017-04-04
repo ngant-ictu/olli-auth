@@ -1,0 +1,8 @@
+body {
+    font-family: Arial !important;
+    height: 100%;
+}
+.wrapper, .row {
+    margin: 15px;
+    height: 100%;
+}

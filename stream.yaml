@@ -1,4 +1,4 @@
-module: user-service
+module: stream-web
 application: olli-iviet
 runtime: python27
 version: 1
@@ -36,22 +36,15 @@ handlers:
   static_dir: public/assets/img
   expiration: "10m"
 
-- url: /api.*
-  script: main.app
+- url: /.*
+  script: main-stream.app
   secure: always
-
-- url: /
-  static_files: public/index.html
-  upload: public/index.html
 
 libraries:
 - name: webapp2
   version: latest
 
 - name: ssl
-  version: latest
-
-- name: pycrypto
   version: latest
 
 - name: jinja2

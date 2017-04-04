@@ -1,0 +1,17 @@
+{
+  "name": "speech-api-server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start-dev": "nodemon ./bin/socket",
+    "start": "./bin/socket"
+  },
+  "dependencies": {
+    "@google-cloud/speech": "0.6.0",
+    "@google-cloud/storage": "0.7.0",
+    "debug": "~2.6.0",
+    "express": "~4.14.1",
+    "node-record-lpcm16": "0.2.0",
+    "socket.io": "^1.7.3"
+  }
+}
