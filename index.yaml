@@ -11,3 +11,13 @@ indexes:
 - kind: InvalidToken
   properties:
   - name: token
+
+- kind: IntentMusicPlaySlot
+  properties:
+  - name: speech_id
+    direction: desc
+
+- kind: IntentSpeech
+  properties:
+  - name: intent
+    direction: desc

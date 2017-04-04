@@ -20,5 +20,11 @@ config = {
     'salt': '3A7UynE902',
 
     # mailgun activate account expire time
-    'account_activation_expire': 60 # in seconds
+    'account_activation_expire': 300,
+
+    # mailgun reset password expire time
+    'account_resetpassword_expire': 300,
+
+    # jinja2 templates
+    'webapp2_extras.jinja2': {'template_path': ['views']}
 }

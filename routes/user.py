@@ -13,7 +13,9 @@ _routes = [
     RedirectRoute('/api/user/register', user.RegisterHandler, name='user-register', strict_slash=True),
     RedirectRoute('/api/user/login/email', user.EmailLoginHandler, name='user-email-login', strict_slash=True),
     RedirectRoute('/api/user/activation', user.ActivationHandler, name='user-activation', strict_slash=True),
-    RedirectRoute('/api/user/logout', user.LogoutHandler, name='user-logout', strict_slash=True)
+    RedirectRoute('/api/user/logout', user.LogoutHandler, name='user-logout', strict_slash=True),
+    RedirectRoute('/api/user/forgotpassword', user.ForgotpasswordHandler, name='user-forgotpassword', strict_slash=True),
+    RedirectRoute('/api/user/resetpassword', user.ResetpasswordHandler, name='user-resetpassword', strict_slash=True)
 ]
 
 def get_routes():

@@ -1,0 +1,149 @@
+{% extends "annotation/layout.html" %}
+{% block title %}
+	Annotation
+{% endblock title %}
+
+{% block css %}
+	<link href="/assets/css/annotation.css" rel="stylesheet" />
+	<link href="/assets/css/plugins/tipped/tipped.css" rel="stylesheet" />
+	<link href="/assets/js/plugins/toast/toastr.min.css" rel="stylesheet" />
+{% endblock css %}
+
+{% block main %}
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Annotation - Demo</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">Home</a></li>
+				<li><a href="/admin/annotation/createsample" target="_blank">Create sample speech</a></li>
+			</ul>
+			<div class="pull-right logout">
+				<a href="{{ logout_url }}" class="btn btn-default">Log out</a>
+			</div>
+		</div>
+	</nav>
+	<div class="wrapper">
+		<div class="row">
+			<div class="column col-xs-9" id="main">
+				<div id="annotation-wrapper">
+					{% if mySpeechs|length > 0 %}
+						{% for speech in mySpeechs %}
+							<p class="record-text" data-id="{{ speech.id }}" data-origin="{{ speech.origin }}">
+							   <span class="line disable-select">{{ loop.index }}.</span>
+							   {{ speech.content.decode('utf8')|safe }}
+							   <span class="tools">
+								   <span class="btn-group">
+									   <button class="btn btn-xs btn-default reset-speech">Refresh</button>
+									   <button class="btn btn-xs btn-danger remove-speech">
+				                           <i class="glyphicon glyphicon-trash" style="font-size: 10px;padding: 3px;"></i>
+				                       </button>
+								   </span>
+				               </span>
+						   	</p>
+						{% endfor %}
+					{% else %}
+						No content
+					{% endif %}
+
+				    <div class="tool-tip" style="display: none;">
+				        <!--
+				            <div class="row popup-box" data-id="###highlight-id###" data-text="###highlight-text###">
+				                <div class="list-intent">
+				                    <label class="radio-inline"><input type="radio" name="optradio" value="song">SONG</label>
+				                    <label class="radio-inline"><input type="radio" name="optradio" value="artist">ARTIST</label>
+				                    <label class="radio-inline"><input type="radio" name="optradio" value="genre">GENRE</label>
+				                </div>
+				            </div>
+				            <script>
+				                $(document).ready(function() {
+				                    var hlId = 0;
+				                    var intentColor = {
+				                        song: '#FFE0B2',
+				                        artist: '#BBDEFB',
+				                        genre: '#C8E6C9'
+				                    };
+
+				                    $('.radio-inline input').on('click', function(e) {
+				                        var selectedValue = $(this).val();
+
+				                        if (selectedValue.length > 0) {
+											// send ajax create slot
+				                            hlId = $('.popup-box').data('id');
+											selectedText = $('.popup-box').data('text');
+
+				                            var hlElement = $('.highlighted[data-timestamp="'+ hlId +'"]');
+											var recordTextEle = hlElement.parent();
+
+											$.ajax({
+												cache: false,
+												method: 'POST',
+												url: '/admin/annotation/createslot',
+												dataType: 'json',
+												data: {
+													fspeechid: recordTextEle.data('id'),
+													fspeechorigin: recordTextEle.data('origin'),
+													fselectedtext: selectedText,
+													fslottype: selectedValue,
+													fhltimestamp: hlId
+												},
+												success: function(response, textStatus, errorThrown) {
+													hlElement.css('background-color', intentColor[selectedValue]);
+													hlElement.attr('data-id', response.id);
+
+													var intentString = '<span class="intent '+ selectedValue +' disable-select"><span>';
+														intentString += selectedValue.toUpperCase();
+														intentString += '</span>';
+														intentString += '</span>';
+
+													hlElement.append(intentString);
+
+													var removeIntent = '<button class="hover-tool" onclick="return removeHighlight('+ response.id +');">';
+														removeIntent += '<span>x</span>';
+														removeIntent += '</button>';
+
+													hlElement.prepend(removeIntent);
+
+													// remove popup
+													Tipped.remove('.highlighted');
+
+													// disable selection
+													hlElement.addClass('disable-select');
+												},
+												complete: function(jqXHR, textStatus, errorThrown) {
+													if (textStatus == 'error') {
+														toastr.error('Your selection not match word. Please try again.', 'Intent SLOT');
+														// remove popup
+														Tipped.remove('.highlighted');
+													}
+												}
+											});
+				                        }
+				                    });
+
+				                    $('.tpd-close-icon').on('click', function() {
+				                        Tipped.remove('.highlighted');
+				                    });
+				                });
+				            </script>
+				        -->
+				    </div>
+			    </div>
+			</div>
+
+			<div class="column col-xs-3" id="sidebar">
+				Fixed right
+			</div>
+		</div>
+	</div>
+{% endblock main %}
+
+{% block js %}
+	<script src="/assets/js/plugins/toast/toastr.min.js"></script>
+	<script src="/assets/js/plugins/jquery.inline-confirmation.js"></script>
+	<script src="/assets/js/plugins/jquery.comment.js"></script>
+	<script src="/assets/js/plugins/tipped/tipped.js"></script>
+	<script src="/assets/js/plugins/texthighlighter/TextHighlighter.js"></script>
+	<script src="/assets/js/annotation.js"></script>
+{% endblock js %}

@@ -1,0 +1,166 @@
+body {
+    font-family: Arial !important;
+    height: 100%;
+}
+.wrapper, .row {
+    margin-left: 15px;
+    margin-right: 15px;
+    height: 100%;
+}
+#annotation-wrapper {
+    font-size: 20px;
+}
+.record-text {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.annotated-text {
+    background-color: yellow;
+}
+.tpd-content > label {
+    display: inline-block;
+    font-size: 16px;
+}
+.tpd-content {
+    background-color: #222222;
+    margin-bottom: 2px;
+}
+.tpd-content-relative {
+    background-color: #222222;
+    padding: 4px;
+}
+.tpd-close {
+    background-color: #222222;
+}
+.tpd-content .list-intent {
+    margin-left: 15px;
+    margin-right: 20px;
+}
+.tpd-content-wrapper {
+    height: auto !important;
+}
+
+.radio-inline input[type=radio] {
+    margin: 1px 0 0;
+}
+.tpd-close-icon {
+    font-size: 20px !important;
+    margin-top: -7px;
+    color: red;
+}
+.highlighted {
+    display: inline-table;
+    text-align: center;
+    clear: both;
+    z-index: 500;
+    transition: 0s background-color;
+}
+.intent {
+    display: block;
+    background-color: white;
+}
+.intent > span {
+    background-color: #eee;
+    padding: 4px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.intent.genre {
+    border-top: 3px solid #4CAF50;
+}
+.intent.song {
+    border-top: 3px solid #FF5722;
+}
+.intent.artist {
+    border-top: 3px solid #2196F3;
+}
+.disable-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently supported by any browser but < IE9 */
+}
+.line {
+    display: inline-block;
+    margin-right: 4px;
+}
+.hover-tool {
+    background-color: black;
+    position: absolute;
+    margin-top: -15px;
+    font-size: 11px;
+    padding: 0px 4px 0px 4px;
+    color: white;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    z-index: 1000;
+    border: 1px;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.5s, opacity 0.5s linear;
+    display: block;
+}
+.highlighted:hover > .hover-tool {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.5s linear;
+}
+
+#sidebar {
+    background-color: #eee;
+    height: 100%;
+    position: fixed;
+    right: 0;
+}
+
+.tools {
+    display: inline-block;
+    float: right;
+    font-size: 12px;
+    margin-top: 4px;
+    opacity: 0;
+    transition: visibility 0s 0.2s, opacity 0.5s linear;
+    display: block;
+}
+.btn {
+    border-radius: 1px !important;
+}
+.record-text:hover .tools {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.2s linear;
+}
+.record-text:hover {
+    background-color: #f5f5f5;
+}
+.record-text:hover .intent > span {
+    background-color: #fff;
+}
+
+.highlighted.song {
+    background: #FFE0B2
+}
+.highlighted.artist {
+    background: #BBDEFB
+}
+.highlighted.genre {
+    background: #C8E6C9
+}
+
+.inline-confirmation-block {
+    font-size: 14px;
+    margin-left: 10px;
+}
+a.confirm-yes {
+    font-weight: bold;
+    color: red;
+}
+.logout {
+    padding: 8px;
+}

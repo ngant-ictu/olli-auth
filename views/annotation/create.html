@@ -1,0 +1,21 @@
+
+{% extends "annotation/layout.html" %}
+
+{% block title %}
+	Create sample Speech
+{% endblock title %}
+
+{% block main %}
+	<div class="row">
+		<div class="column col-md-6" style="padding: 30px;">
+			{{ message }}
+			<form method="POST" action="">
+				<div class="form-group">
+					<input type="text" name="fcontent" class="form-control"/>
+				</div>
+				<input type="submit" name="fsubmit" class="btn btn-success pull-right" value="SEND"/>
+		    </form>
+		</div>
+	</div>
+
+{% endblock main %}

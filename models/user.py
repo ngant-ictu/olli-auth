@@ -12,6 +12,8 @@ class User(ndb.Model):
     date_created = ndb.DateTimeProperty(auto_now_add=True)
     date_modified = ndb.DateTimeProperty(auto_now=True)
     date_change_password = ndb.DateTimeProperty()
+    date_forgot_password = ndb.DateTimeProperty()
+    date_activation = ndb.DateTimeProperty()
 
     STATUS_ACTIVE = 1
     STATUS_INACTIVE = 3

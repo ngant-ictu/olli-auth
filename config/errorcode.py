@@ -58,5 +58,15 @@ error = {
         'error_code': 4001,
         'dev_message': 'Activation link has been expired',
         'status_code': 400
+    },
+    'USER_RESETPASSWORD_EXPIRE': {
+        'error_code': 4002,
+        'dev_message': 'Reset password link has been expired',
+        'status_code': 400
+    },
+    'USER_CODE_RESET_NOT_MATCH': {
+        'error_code': 4003,
+        'dev_message': 'Reset password code validation form not match in db',
+        'status_code': 400
     }
 }
